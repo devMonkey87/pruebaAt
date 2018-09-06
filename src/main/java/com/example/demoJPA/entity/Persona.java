@@ -66,7 +66,7 @@ public class Persona {
 		this.dni = dni;
 		this.nombre = nombre;
 		this.fechaNac = fechaNac;
-		// this.coches = coches;
+//		 this.coches = coches;
 	}
 
 	public Persona() {
