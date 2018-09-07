@@ -7,36 +7,23 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
-
-
 @Entity
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
-@Table (name="coche")
+
+@Table(name = "coche")
 public class Coche {
 
 	@Id
-	@Column(name="Matricula")
+	@Column(name = "Matricula")
 	private String matricula;
-	
-	@Column(name="Fabricante",nullable=true)
+
+	@Column(name = "Fabricante", nullable = true)
 	private String fabricante;
-	
-	@Column(name="Modelo",nullable=true)
+
+	@Column(name = "Modelo", nullable = true)
 	private String modelo;
-	
+
 	@ManyToOne
-	@JoinColumn(name="Propietario_Id",nullable=true)
+	@JoinColumn(name = "Propietario_Id", nullable = true)
 	private Persona persona;
 
 	public String getMatricula() {
@@ -85,17 +72,8 @@ public class Coche {
 				+ persona + "]";
 	}
 
-	
-
 	public Coche() {
 		super();
 	}
-	
-
-	
-	
-	
-	
-	
 
 }
