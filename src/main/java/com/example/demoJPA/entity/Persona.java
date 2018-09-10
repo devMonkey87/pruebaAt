@@ -5,11 +5,10 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-
 
 @Entity
 
@@ -26,7 +25,7 @@ public class Persona {
 	@Column(name = "Fecha_nac", nullable = true)
 	private String fechaNac;
 
-	@OneToMany(mappedBy = "persona")
+	@OneToMany(mappedBy = "persona", fetch = FetchType.EAGER)
 	private List<Coche> coches = new ArrayList<Coche>();
 
 	public String getDni() {
@@ -61,12 +60,12 @@ public class Persona {
 //		this.coches = coches;
 //	}
 
-	public Persona(String dni, String nombre, String fechaNac, List<Coche> coches) {
+	public Persona(String dni, String nombre, String fechaNac) {
 		super();
 		this.dni = dni;
 		this.nombre = nombre;
 		this.fechaNac = fechaNac;
-//		 this.coches = coches;
+		// this.coches = coches;
 	}
 
 	public Persona() {

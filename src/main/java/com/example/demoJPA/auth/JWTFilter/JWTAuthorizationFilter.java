@@ -1,6 +1,7 @@
 package com.example.demoJPA.auth.JWTFilter;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -16,6 +17,8 @@ import com.example.demoJPA.auth.serviceJWT.JWTService;
 import com.example.demoJPA.auth.serviceJWT.JWTServiceImpl;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
+	Logger log = Logger.getLogger("MyLogger");
+
 	private JWTService jwtService;
 
 	public JWTAuthorizationFilter(AuthenticationManager authenticationManager, JWTService jwtService) {
@@ -33,10 +36,15 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 			chain.doFilter(request, response);
 			return;
 		}
-
+		logger.warn("AUTHORIZATION :" + header);
 		UsernamePasswordAuthenticationToken authentication = null;
 
 		if (jwtService.validate(header)) {
+			logger.warn("EXITO validacion");
+
+			logger.warn("USERNAME///////////////" + jwtService.getUsername(header));
+			// logger.warn("ROLES///////////////" + jwtService.getRoles(header));
+
 			authentication = new UsernamePasswordAuthenticationToken(jwtService.getUsername(header), null,
 					jwtService.getRoles(header));
 		}

@@ -42,7 +42,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		if (username != null && password != null) {
 			logger.warn("Username desde request parameter (form-data): " + username);
 			logger.warn("Password desde request parameter (form-data): " + password);
-
 		} else {
 //			Usuario user = null;
 //			try {

@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
 import com.example.demoJPA.auth.JWTFilter.JWTAuthenticationFilter;
 import com.example.demoJPA.auth.JWTFilter.JWTAuthorizationFilter;
@@ -24,8 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		http.authorizeRequests().antMatchers("/api/login**").permitAll().antMatchers("/coches")
-				.hasAnyRole("ADMIN", "USER").antMatchers("/").permitAll().and()
+		http.authorizeRequests().antMatchers("/coches/**").hasAnyRole("ADMIN").antMatchers("/").permitAll().and()
 				.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtService))
 				.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtService)).csrf().disable()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -35,10 +34,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 
-		auth.inMemoryAuthentication().passwordEncoder(PasswordEncoderFactories.createDelegatingPasswordEncoder())
-				.withUser("ram").password(("ram123")).roles("ADMIN");
-		auth.inMemoryAuthentication().withUser("ravan").password("ravan123").roles("USER");
-		auth.inMemoryAuthentication().withUser("kans").password("kans123").roles("USER");
+//		String idForEncode = "SHA-256";
+//		Map<String, PasswordEncoder> encoders = new HashMap<>();
+//		encoders.put(idForEncode, new MessageDigestPasswordEncoder("SHA-256"));
+//		encoders.put("pbkdf2", new Pbkdf2PasswordEncoder());
+//		encoders.put("scrypt", new SCryptPasswordEncoder());
+//
+//		PasswordEncoder passwordEncoder = new DelegatingPasswordEncoder(idForEncode, encoders);
+//
+//		String pword = Jwts.builder().signWith(SignatureAlgorithm.HS512,
+//				"pwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpwordpword"
+//						.getBytes())
+//				.compact();
+
+		auth.inMemoryAuthentication().passwordEncoder(NoOpPasswordEncoder.getInstance()).withUser("jose")
+				.password("JOSE123").roles("ADMIN", "USER").and()
+				// .passwordEncoder(passwordEncoder);
+				.withUser("user").password("xxx").roles("USER");
+		// .passwordEncoder(passwordEncoder);
+
 	}
 
 }
