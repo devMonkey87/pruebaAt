@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ImportResource;
 
 @SpringBootApplication
-@ImportResource("classPath:beanFileName.xml")
+//@ImportResource("classPath:beanFileName.xml")
 public class DemoJpaApplication {
 
 	public static void main(String[] args) {
